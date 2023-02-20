@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:each="el : ${info_product}" th:text="${el.subcategory.category.title}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/style_product.css">
+</head>
+<body>
+
+    <header th:insert="header :: header"></header>
+
+    <div class="info_product" th:each="el : ${info_product}">
+        <div class="img_product">
+            <img th:src="@{${'/img/product/' + el.url_img}}" />
+        </div>
+        <div class="info">
+            <div class="name_product">
+                <h3 th:text="${el.title}"/>
+                <p th:text="${el.fabricator.name}" />
+            </div>
+            <div class="price_product">
+                <div class="price" th:if="${el.discounts}!=0" >
+                    <p th:text="(${el.price} * (100 - ${el.discounts}))/100 + ' р.'" />
+                    <p class="old_price" th:text="${el.price} + ' р.'"/>
+                </div>
+                <div class="price" th:if="${el.discounts}==0" >
+                    <p th:text="${el.price} + ' р.'" />
+                </div>
+            </div>
+            <div class="des_product" >
+                <h4>Описание:</h4>
+                <p th:text="${el.description}" />
+            </div>
+            <a hfef="#" class="in_box" th:attr="onmousedown=|in_box('${el.id}', 'list_product/')|">В корзину</a>
+<!--            <a th:href="'list_product/' + ${el.id}" class="in_box" >В корзину</a>-->
+        </div>
+    </div>
+
+    <footer th:insert="footer :: footer"></footer>
+
+    <script>
+        let cont = document.getElementsByClassName(document.title)[0];
+        cont.style.setProperty('border-bottom', '3px solid #FF41A2');
+    </script>
+
+</body>
+</html>

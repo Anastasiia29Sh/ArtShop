@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+    <header th:insert="header :: header"></header>
+
+    <div class="main_img">
+        <img src="img/color_img.png">
+    </div>
+
+
+    <!-- ******************** БЛОК - АКЦИИ ******************* -->
+    <div class="stock">
+        <div class="stock_title">
+            <p>Акции</p>
+        </div>
+        <div class="card_stock">
+            <div class="card">
+                <div class="img_card">
+                    <img src="img/birthday.png">
+                </div>
+                <div class="title_card">
+                    <p>В день рождения скидка -15%</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img_card">
+                    <img src="img/skidka_postoyannym_klientam.jpg">
+                </div>
+                <div class="title_card">
+                    <p>Постоянным клиентам скидка -10%</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img_card">
+                    <img src="img/many_products.png">
+                </div>
+                <div class="title_card">
+                    <p>В заказе больше 10 разных товаров - скидка -10%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ******************** БЛОК - АКЦИИ ******************* -->
+
+
+    <!-- ******************** БЛОК - СКИДКИ ******************* -->
+    <div class="discounts">
+        <div class="stock_title">
+            <p>Скидки</p>
+        </div>
+        <!-- КАРТОЧКИ - Скидки -->
+        <div class="cards">
+            <div class="card" th:each="el : ${products_discounts}" th:if="${el.status}" th:id="${el.id}" th:attr="onclick=|upload('${el.id}')|"  >
+                <div class="img_card">
+                    <img th:src="@{${'img/product/' + el.url_img}}" />
+                </div>
+                <div class="title_card">
+                    <p th:text="${el.title}"/>
+                </div>
+                <div class="price_card">
+                    <div class="price">
+                        <p th:text="(${el.price} * (100 - ${el.discounts}))/100 + ' р.'" />
+                        <p class="old_price" th:text="${el.price} + ' р.'"/>
+                    </div>
+                    <a hfef="#" class="in_box" th:attr="onmousedown=|in_box('${el.id}', '/')|">В корзину</a>
+                </div>
+            </div>
+        </div>
+        <a href="/discounts_product" class="more_next">Больше &#8594</a>
+    </div>
+    <!-- ******************** БЛОК - СКИДКИ ******************* -->
+
+
+    <!-- ******************** БЛОК - ПОДАРОК ХУДОЖНИКУ ******************* -->
+    <div class="present_art">
+        <div class="present_title">
+            <p>Подарок художнику</p>
+        </div>
+        <!-- КАРТОЧКИ  -->
+        <div class="cards">
+            <div class="card" th:each="el : ${products_present}" th:if="${el.status}" th:id="${el.id}" th:attr="onclick=|upload('${el.id}')|">
+                <div class="img_card">
+                    <img th:src="@{${'img/product/' + el.url_img}}" />
+                </div>
+                <div class="title_card">
+                    <p th:text="${el.title}"/>
+                </div>
+                <div class="price_card">
+                    <div class="price" th:if="${el.discounts}!=0" >
+                        <p th:text="(${el.price} * (100 - ${el.discounts}))/100 + ' р.'" />
+                        <p class="old_price" th:text="${el.price} + ' р.'"/>
+                    </div>
+                    <div class="price" th:if="${el.discounts}==0" >
+                        <p th:text="${el.price} + ' р.'" />
+                    </div>
+                    <a hfef="#" class="in_box" th:attr="onmousedown=|in_box('${el.id}', '/')|">В корзину</a>
+                </div>
+            </div>
+        </div>
+        <a href="/gift_artist" class="more_next">Больше &#8594</a>
+    </div>
+    <!-- ******************** БЛОК - ПОДАРОК ХУДОЖНИКУ ******************* -->
+
+
+    <!-- ******************** БЛОК - НОВИНКИ ******************* -->
+    <div class="novelties">
+        <div class="novelties_title">
+            <p>Новинки</p>
+        </div>
+        <!-- КАРТОЧКИ - Новинки -->
+        <div class="cards" >
+            <div class="card" th:each="el : ${products_novelties}" th:if="${el.status}" th:id="${el.id}" th:attr="onclick=|upload('${el.id}')|">
+                <div class="img_card">
+                    <img th:src="@{${'img/product/' + el.url_img}}" />
+                </div>
+                <div class="title_card">
+                    <p th:text="${el.title}"/>
+                </div>
+                <div class="price_card">
+                    <div class="price" th:if="${el.discounts}!=0" >
+                        <p th:text="(${el.price} * (100 - ${el.discounts}))/100 + ' р.'" />
+                        <p class="old_price" th:text="${el.price} + ' р.'"/>
+                    </div>
+                    <div class="price" th:if="${el.discounts}==0" >
+                        <p th:text="${el.price} + ' р.'" />
+                    </div>
+                    <a hfef="#" class="in_box" th:attr="onmousedown=|in_box('${el.id}', '/')|">В корзину</a>
+                </div>
+            </div>
+        </div>
+        <a href="/novelties_product" class="more_next">Больше &#8594</a>
+    </div>
+    <!-- ******************** БЛОК - НОВИНКИ ******************* -->
+
+
+    <!-- ******************** БЛОК - О МАГАЗИНЕ ******************* -->
+    <div class="about_shop" id="about_shop">
+        <h3>О магазине</h3>
+        <p class="text1">Мы предлагаем:</p>
+        <p>
+            Самые популярные и востребованные материалы для творчества профессиональных и начинающих художников,
+            дизайнеров, людей, занимающихся рисованием с детьми.
+        </p>
+        <p class="text2">Наши покупатели:</p>
+        <ul>
+            <li>художественные студии и творческие коллективы;</li>
+            <li>розничные специализированные магазины товаров для творчества;</li>
+            <li>педагоги ИЗО;</li>
+            <li>частные творческие лица всех возрастов.</li>
+        </ul>
+    </div>
+    <!-- ******************** БЛОК - О МАГАЗИНЕ ******************* -->
+
+    <script>
+        function upload(id){
+            location.href = 'product/' + id;
+        }
+    </script>
+
+
+    <footer th:insert="footer :: footer"></footer>
+
+</body>
+</html>

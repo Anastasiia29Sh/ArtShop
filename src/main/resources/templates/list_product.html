@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/list_product.css">
+</head>
+<body>
+
+    <header th:insert="header :: header"></header>
+    <script>
+        let cont = document.getElementsByClassName(document.title)[0];
+        cont.style.setProperty('border-bottom', '3px solid #FF41A2');
+    </script>
+
+    <div class="product">
+        <div class="catalog">
+            <h3>Каталог</h3>
+            <a href="/watercolor_paints" name="Краски акварельные">Краски акварельные</a>
+            <a href="/acrylic_paints" name="Краски акриловые">Краски акриловые</a>
+            <a href="/gouache_paints" name="Краски гуашевые">Краски гуашевые</a>
+            <a href="/oil_paints" name="Краски масляные">Краски масляные</a>
+            <a href="/brushes_watercolor_gouache" name="Кисти для акварели и гуаши">Кисти для акварели и гуаши</a>
+            <a href="/oil_brushes" name="Кисти для акрила">Кисти для акрила</a>
+            <a href="/brush_cases" name="Пеналы для кистей">Пеналы для кистей</a>
+            <a href="/universal_brushes" name="Кисти универсальные">Кисти универсальные</a>
+            <a href="/watercolor_paper" name="Бумага для акварели">Бумага для акварели</a>
+            <a href="/paper_acrylic_oil" name="Бумага для акрила и масла">Бумага для акрила и масла</a>
+            <a href="/paper_pastel_charcoal" name="Бумага для пастели, угля">Бумага для пастели, угля</a>
+            <a href="/graphics_paper" name="Бумага для графики">Бумага для графики</a>
+            <a href="/drawing_paper" name="Бумага чертежная">Бумага чертежная</a>
+            <a href="/pencils_rods" name="Карандаши и стержни">Карандаши и стержни</a>
+            <a href="/markers" name="Маркеры и фломастеры">Маркеры и фломастеры</a>
+            <a href="/pastel_sepia" name="Пастель, сепия">Пастель, сепия</a>
+            <a href="/feathers_pens" name="Перья, ручки">Перья, ручки</a>
+            <a href="/ink" name="Тушь и чернила">Тушь и чернила</a>
+            <a href="/easelss" name="Мольберты">Мольберты</a>
+            <a href="/sketchbooks" name="Этюдники">Этюдники</a>
+            <a href="/tablets" name="Планшеты">Планшеты</a>
+            <a href="/primed_cardboard" name="Картон грунтованный">Картон грунтованный</a>
+            <a href="/canvas_unprimed" name="Холст негрунтованный">Холст негрунтованный</a>
+            <a href="/binding_cardboard" name="Картон переплетный">Картон переплетный</a>
+            <a href="/gypsum_clay" name="Гипс и глина">Гипс и глина</a>
+            <a href="/plasticine_sculptural" name="Пластилин скульптурный">Пластилин скульптурный</a>
+            <a href="/sculptural_tools" name="Инструменты скульптурные">Инструменты скульптурные</a>
+            <a href="/notebooks" name="Блокноты и тетради">Блокноты и тетради</a>
+            <a href="/glue" name="Клей">Клей</a>
+            <a href="/buttons_clips" name="Кнопки, скрепки, зажимы для бумаг">Кнопки, скрепки, зажимы для бумаг</a>
+            <a href="/rulers" name="Линейки">Линейки</a>
+            <a href="/erasers" name="Ластики">Ластики</a>
+            <a href="/colour_pencils" name="Цветные карандаши">Цветные карандаши</a>
+            <a href="/compasses_scissors" name="Циркули, ножницы">Циркули, ножницы</a>
+            <a href="/gift_artist" name="Подарок художнику">Подарок художнику</a>
+        </div>
+        <div class="list_product">
+            <h2 th:if="${title_catalog}==''" th:text="${title}" class="name_catalog"/>
+            <h2 th:if="${title_catalog}!=''" th:text="${title_catalog}" class="name_catalog" />
+            <script>
+                let name_catalog = document.querySelector(".name_catalog").innerHTML;
+                if(document.title != name_catalog || name_catalog == "Мольберты" || name_catalog == "Подарок художнику"){
+
+                    let cont = document.querySelector('a[name="' + name_catalog + '"]');
+                    cont.style.setProperty('color', '#E90378');
+                }
+            </script>
+            <!-- КАРТОЧКИ -->
+            <div class="cards">
+                <div class="card" th:each="el : ${products}" th:if="${el.status}" th:id="${el.id}" th:attr="onclick=|upload('${el.id}')|">
+                    <div class="img_card">
+                        <img th:src="@{${'img/product/' + el.url_img}}" />
+                    </div>
+                    <div class="title_card">
+                        <p th:text="${el.title}"/>
+                    </div>
+                    <div class="price_card">
+                        <div class="price" th:if="${el.discounts}!=0" >
+                            <p th:text="(${el.price} * (100 - ${el.discounts}))/100 + ' р.'" />
+                            <p class="old_price" th:text="${el.price} + ' р.'"/>
+                        </div>
+                        <div class="price" th:if="${el.discounts}==0" >
+                            <p th:text="${el.price} + ' р.'" />
+                        </div>
+<!--                        <a class="in_box" th:id="'in_box' + ${el.id}" >В корзину</a>-->
+                        <a hfef="#" class="in_box" th:id="'in_box' + ${el.id}" th:attr="onmousedown=|in_box1('${el.id}')|">В корзину</a>
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                                var name_str = window.location.pathname;
+                                var id_str = /*[[${el.id}]]*/ 'default';
+
+                                var na_us = /*[[${name_user}]]*/ 'default';
+
+                                function in_box1(id){
+			                        if(na_us == "hello") {
+			                            document.getElementById("input_user").style.display = "block";
+			                            location.href = '#';
+			                        }
+			                        else {
+			                            location.href = 'list_product/' + id + name_str;
+			                        }
+			                    }
+
+<!--                                var a = document.getElementById('in_box' + id_str);-->
+<!--                                a.href = 'list_product/' + id_str + name_str;-->
+                            /*]]>*/
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:insert="footer :: footer"></footer>
+
+
+    <script>
+        function upload(id){
+            location.href = 'product/' + id;
+        }
+        function in_basket(id){
+             var a = document.getElementById('in_box');
+             a.href = 'list_product/' + id + window.location.pathname;
+        }
+
+    </script>
+
+</body>
+</html>

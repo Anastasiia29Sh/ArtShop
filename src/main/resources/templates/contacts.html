@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/contacts.css">
+</head>
+<body>
+
+    <header th:insert="header :: header"></header>
+    <script>
+        let cont = document.getElementsByClassName('contacts')[0];
+        cont.style.setProperty('border-bottom', '3px solid #9AE7FF');
+    </script>
+
+
+    <div class="main_img">
+        <img src="/img/contacts.png">
+    </div>
+
+    <div class="info_contacts">
+        <div class="info_tel">
+            <div class="img_cont">
+                <img src="/img/icons/tlfm_icons-1831923_960_720 1.png" alt="">
+            </div>
+            <div class="p_cont">
+                <h4>Позвонить</h4>
+                <p>Общий справочный телефон: +7 (495) 055-77-70</p>
+            </div>
+        </div>
+
+        <div class="main_info">
+            <div>
+                <h4>Справочная информация предоставляется:</h4>
+                <ul>
+                    <li>в будние дни с 09-15 до 19-45;</li>
+                    <li>в субботу и воскресенье с 10:00 до 18:45;</li>
+                    <li>в нерабочее время рекомендуем воспользоваться электронной почтой</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Наш сотрудник ответит на основные вопросы:</h4>
+                <ul>
+                    <li>о том как оформить заказ; </li>
+                    <li>о готовности Вашего заказа;</li>
+                    <li>о графике работы точек доступа и магазинов</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Вы можете, например:</h4>
+                <ul>
+                    <li>уточнить как заказать товар;  </li>
+                    <li>сделать замечания по работе магазинов; </li>
+                    <li>задать вопрос о трудоустройстве</li>
+                    <li>заказать товар;</li>
+                    <li>направить предложения о сотрудничестве;</li>
+                    <li>направить свои замечания о работе магазинов</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info_email">
+            <div class="img_cont">
+                <img src="/img/icons/email_contact.png" alt="">
+            </div>
+            <div class="p_cont">
+                <h4>Написать</h4>
+                <p>Единый адрес e-mail: art_lab@mail.ru</p>
+            </div>
+        </div>
+
+        <div class="main_info">
+            <div>
+                <h4>Наши реквизиты:</h4>
+                <ul>
+                    <li>общество с ограниченной ответственностью «АРТ-СНАБ» (ОГРН 1197746413842) ИНН 7714447615;</li>
+                    <li>юридический и фактический адрес: 125284, г. Санкт-Петербург, Хорошевское шоссе, д. 38, корп. 1, этаж 2, комн. 201;  </li>
+                    <li>банковские реквизиты: р/c: 40702810138000191011 в ПАО «Сбербанк России», БИК 044525225, к/с банка: 30101810400000000225.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="main_img main_img1" >
+        <img src="/img/contact2.png">
+    </div>
+
+    <footer th:insert="footer :: footer"></footer>
+
+</body>
+</html>

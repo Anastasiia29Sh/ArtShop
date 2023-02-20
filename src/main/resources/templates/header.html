@@ -1,0 +1,146 @@
+<div th:fragment="header">
+<header>
+    <div class="top">
+        <menu>
+            <a href="/#about_shop">О нас</a>
+            <a href="/contacts" class="contacts">Контакты</a>
+            <a href="/delivery" class="delivery">Доставка</a>
+            <a href="/pay" class="pay">Оплата</a>
+        </menu>
+        <div class="input_account">
+            <img src="/img/icons/user.png">
+            <a href="#" id="uname" onmousedown="viewDiv()" >Вход | Регистрация</a>
+        </div>
+    </div>
+    <hr class="line1">
+    <div class="center">
+        <div class="logo" onclick="location.href = '/'">
+            <img src="/img/logo.png" alt="">
+            <h1>Лаборатория Художника</h1>
+        </div>
+        <div class="info1">
+            <div class="info_city">
+                <img src="/img/icons/mesto.png">
+                <p class="city">Санкт-Петербург</p>
+            </div>
+            <div class="info_time">
+                <img src="/img/icons/time.png">
+                <p class="time">09:00 — 19:30</p>
+            </div>
+        </div>
+        <div class="info2">
+            <div class="info_tel">
+                <img src="/img/icons/tel.png" alt="">
+                <p class="tel">+7 (495) 055-7770</p>
+            </div>
+            <div class="info_email">
+                <img src="/img/icons/email.png" alt="">
+                <p class="email">art_lab@mail.ru</p>
+            </div>
+        </div>
+        <div class="basket" th:attr="onclick=|basket()|">
+            <img src="/img/icons/tang.png">
+            <p th:text="'корзина (' + ${count_product_basket} + ')'"/>
+        </div>
+    </div>
+    <hr class="line2">
+</header>
+
+    <menu class="menu_catalog">
+        <a href="/paints" class="Краски">Краски</a>
+        <a href="/brushes" class="Кисти">Кисти</a>
+        <a href="/paper" class="Бумага">Бумага</a>
+        <a href="/graphic" class="Графика">Графика</a>
+        <a href="/easels" class="Мольберты">Мольберты</a>
+        <a href="/canvases" class="Холсты и рамки">Холсты и рамки</a>
+        <a href="/modeling" class="Лепка">Лепка</a>
+        <a href="/stationery" class="Канцтовары">Канцтовары</a>
+    </menu>
+
+
+    <!-- ******************** Вход | Регистрация ******************* -->
+    <div class="input_user" id="input_user">
+        <a href="#" onmousedown="noneDiv()"> &#10060</a>
+        <h3>Войти или создать профиль</h3>
+        <script>
+			function noneDiv(){
+				document.getElementById("input_user").style.display = "none";
+			};
+		   </script>
+        <form th:action="@{/input_user}" id="form" method="post" >
+            <label>E-mail: <br>
+                <input type="email" name="login">
+            </label>
+            <label>Пароль: <br>
+                <input type="password" name="password">
+            </label>
+
+            <input name="path" type="radio" id="path" checked>
+
+            <input type="submit" name="entrance" value="Войти" class="submit">
+            <a href="/registration" class="submit">Регистрация</a>
+        </form>
+
+        <p style="color: red;" th:text="${mess}" />
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+            var name_us = /*[[${name_user}]]*/ 'default';
+            var active = /*[[${active}]]*/ 'default';
+
+
+            var id_accaunt_user = /*[[${id_accaunt_user}]]*/ 'default';
+            console.log(id_accaunt_user);
+
+            if(active == "true"){
+                document.getElementById("input_user").style.display = "block";
+            }else document.getElementById("input_user").style.display = "none";
+
+            if(name_us == "hello"){
+                document.getElementById("uname").innerHTML = "Вход | Регистрация";
+            }else{
+                document.getElementById("uname").innerHTML = name_us;
+            }
+
+			let un = String(document.getElementById("uname").textContent);
+			function viewDiv(){
+				if(un == "Вход | Регистрация"){
+					document.getElementById("input_user").style.display = "block";
+				}
+				else{
+					window.location.href = "/profile";
+				}
+			};
+
+			function in_box(id, str){
+			    if(name_us == "hello") {
+			        document.getElementById("input_user").style.display = "block";
+			        location.href = '#';
+			    }
+			    else {
+			        location.href = str + id;
+			    }
+			}
+
+			var name_str = window.location.pathname;
+			document.getElementById("path").value = name_str;
+			document.getElementById("path").checked=true;
+
+			function basket(){
+			    if(name_us == "hello") {
+			        document.getElementById("input_user").style.display = "block";
+			        location.href = '#';
+			    }else location.href = '/basket';
+            }
+
+
+		/*]]>*/
+	</script>
+    <!-- ******************** Вход | Регистрация ******************* -->
+
+</div>
+
+
+
+
+

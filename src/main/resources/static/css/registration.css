@@ -1,0 +1,43 @@
+.reg{
+    font-size: 24px;
+    text-align: center;
+    margin-top: 15px;
+}
+.form_reg{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 30px;
+}
+.form_reg  input{
+    padding: 15px;
+    border: 1px solid #E88BBA;
+    width: 250px;
+    margin-bottom: 30px;
+    font-size: 18px;
+}
+table{
+    font-size: 20px;
+}
+table td{
+    padding-right: 25px;
+}
+table .td1{
+    float: right;
+}
+.form_reg .go{
+    padding: 15px;
+    background-color: #fff;
+    font-size: 22px;
+    border: 2px solid #E88BBA;
+}
+.form_reg .go:hover{
+    background-color: #E88BBA;
+}
+.mes{
+    color: red;
+    text-align: center;
+    margin-top: 15px;
+}

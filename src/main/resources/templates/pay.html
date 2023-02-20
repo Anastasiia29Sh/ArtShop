@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/contacts.css">
+</head>
+<body>
+
+<header th:insert="header :: header"></header>
+<script>
+        let cont = document.getElementsByClassName('pay')[0];
+        cont.style.setProperty('border-bottom', '3px solid #9AE7FF');
+    </script>
+
+
+<div class="main_img">
+    <img src="/img/pay1.png">
+</div>
+
+<div class="info_contacts">
+    <div class="main_info">
+        <div>
+            <h4>Общепринятые формы оплаты:</h4>
+            <ul>
+                <li>оплата наличными;</li>
+                <li>оплата банковской картой при получении заказа; </li>
+                <li>оплата банковской картой на сайте;</li>
+                <li>оплата банковской картой на карту клиента Сбербанка;</li>
+                <li>оплата безналичная по выставленному счету.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="main_img main_img1" >
+    <img src="/img/pay2.png">
+</div>
+
+<footer th:insert="footer :: footer"></footer>
+
+</body>
+</html>

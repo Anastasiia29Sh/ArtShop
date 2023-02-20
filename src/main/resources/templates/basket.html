@@ -1,0 +1,244 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title th:text="${title}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/basket_style.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+</head>
+<body>
+
+    <script>
+        var articleLink = '/scripts/forms/610-stepperjs-uvelichenie-umenshenie-znacheniy-v-input-typenumber-zadannym-shagom.html';
+    </script>
+
+    <header th:insert="header :: header"></header>
+
+    <h2 class="title_bask">Корзина</h2>
+
+
+    <script>
+        let all_price = 0;
+    </script>
+
+    <div class="product_baskett">
+    <form th:action="@{/basket}" method="post" th:object="${checkbox}">
+
+        <!-- Товары в корзине -->
+        <div class="product_basket" th:each="el : ${all}" th:if="${el.status}">
+            <input type="checkbox" th:field="*{list_product}"  th:value="${el.id}" />
+
+            <div class="title_product">
+                <div class="img_prod">
+                    <img th:src="@{${'img/product/' + el.url_img}}" />
+                </div>
+                <div class="title_prod">
+                    <a href="" th:href="@{${'product/' + el.id}}" th:text="${el.title_product}" />
+<!--                    <h4 th:text="${el.title_product}" />-->
+                    <p th:text="${el.fabricator_name}" />
+                </div>
+            </div>
+
+            <div class="count_prod stepper stepper--style-2 js-spinner">
+                <div class="stepper__controls">
+                    <button type="button" spinner-button="down" th:attr="onclick=|price('${el.id}', '${el.price}', '${el.discounts}')|">-</button>
+                    <input th:name="${el.id}" th:value="${el.count}" th:id="'count' + ${el.id}" readonly autofocus type="number" min="1" max="100" step="1"  class="stepper__input cc" data-stepper-debounce="400">
+                    <button type="button" spinner-button="up" th:attr="onclick=|price('${el.id}', '${el.price}', '${el.discounts}')|">+</button>
+                </div>
+            </div>
+
+            <script>
+                function price(id, price, discounts){
+                    var count_p = document.getElementById('count' + id).value;
+                    if(discounts==0){
+                        var t = document.getElementById('price' + id);
+                        t.innerHTML = (price * count_p).toFixed(2) + ' р.';
+                    }
+                    else{
+                        var t_d = document.getElementById('price_d' + id);
+                        t_d.innerHTML = ((price * (100 - discounts))/100 * count_p).toFixed(2) + ' р.';
+                    }
+
+                    tr();
+                }
+            </script>
+
+            <div class="price_prod">
+                <div class="price" th:if="${el.discounts}!=0" >
+                    <p class="pr" th:id="'price_d' + ${el.id}" th:text="(${el.price} * (100 - ${el.discounts}))/100 * ${el.count} + ' р.'" />
+                    <p th:id="'price' + ${el.id}" class="old_price" th:text="${el.price}*${el.count} + ' р.'"/>
+                </div>
+                <div class="price" th:if="${el.discounts}==0" >
+                    <p class="pr" th:id="'price' + ${el.id}" th:text="${el.price}*${el.count} + ' р.'" />
+                </div>
+            </div>
+
+            <div class="delete_prod">
+                <a th:href="'/basket/' + ${el.id}">	&#10060</a>
+            </div>
+
+        </div>
+
+        <!--    Товары, которых нет в наличие    -->
+        <div class="product_basket status_false" th:each="el : ${all}" th:if="${el.status}=='false'">
+
+            <div class="title_product">
+                <div class="img_prod">
+                    <img th:src="@{${'img/product/' + el.url_img}}" />
+                </div>
+                <div class="title_prod">
+                    <h4 th:text="${el.title_product}" />
+                    <p th:text="${el.fabricator_name}" />
+                    <p class="not">Товара нет в наличии</p>
+                </div>
+            </div>
+
+            <div class="delete_prod">
+                <a th:href="'/basket/' + ${el.id}">	&#10060</a>
+            </div>
+
+        </div>
+
+        <!--    Корзина пуста    -->
+        <div th:if="${count_product_basket}==0">
+            <p class="">Ваша корзина пуста.</p>
+        </div>
+
+
+        <!--  Общая сумма   -->
+        <div id="pr_all" th:each="el : ${all}" th:if="${el.status}">
+            <input type="checkbox" th:field="*{list_count}" th:value="${el.id} + '_' + ${el.count}" th:id="'count_' + ${el.id}" class="ccc" checked />
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                    var id = /*[[${el.id}]]*/ 'default';
+                    var discounts = /*[[${el.discounts}]]*/ 'default';
+                    var status = /*[[${el.status}]]*/ 'default';
+                    var mes = /*[[${mes}]]*/ 'default';
+
+                    if(mes != null){
+                        window.onload = function(){
+                            document.getElementById('mes').scrollIntoView(true);
+                        }
+                    }
+
+                    if(status){
+                        if(discounts == 0){
+                            let w = document.getElementById('price' + id).textContent;
+                            let t = w.length - 3;
+                            let ww = w.slice(0, parseInt(t));
+                            all_price += parseFloat(ww);
+                        }
+                        else{
+                            let p = document.getElementById('price_d' + id).textContent;
+                            let t = p.length - 3;
+                            let pp = p.slice(0, parseInt(t));
+                            all_price += parseFloat(pp);
+                        }
+                    }
+                /*]]>*/
+            </script>
+        </div>
+
+        <div class="all_price">
+            <p id="all_price"></p>
+        </div>
+
+        <script>
+            document.getElementById('all_price').innerHTML = 'Общая сумма корзины: ' + all_price.toFixed(2) + ' р.';
+
+            function tr(){
+                all_price = 0;
+                var messages = document.querySelectorAll(".pr");
+                for (var i = 0; i < messages.length; i++) {
+                    var w = messages[i].textContent;
+                    let t = w.length - 3;
+                    let ww = w.slice(0, parseInt(t));
+                    all_price += parseFloat(ww);
+                }
+                document.getElementById('all_price').innerHTML = 'Общая сумма корзины: ' + all_price.toFixed(2) + ' р.';
+
+                var coun = document.querySelectorAll(".cc");
+                var coun1 = document.querySelectorAll(".ccc");
+                for (var i = 0; i < coun.length; i++) {
+                    coun1[i].value = coun[i].name + "_" + coun[i].value;
+                }
+                for (var i = 0; i < coun1.length; i++) {
+                    coun1[i].checked=true;
+                }
+
+                return all_price;
+            }
+        </script>
+
+
+
+        <div class="order">
+            <div class="infa_user">
+                <h3>Информация о покупателе</h3>
+                <table>
+                    <tr>
+                        <td class="td1">Имя *</td>
+                        <td><input th:value="${name1_user}" type="text" name="first_name" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="td1">Фамилия *</td>
+                        <td><input th:value="${name2_user}" type="text" name="second_name" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="td1">E-mail *</td>
+                        <td><input th:value="${email_user}" type="email" name="mail" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="td1">Адрес *</td>
+                        <td><input th:field="*{address}" type="text" name="address"></td>
+                    </tr>
+                </table>
+                <textarea th:field="*{commet}" placeholder="Комментарий к заказу" name="comment" cols="48" rows="8" ></textarea>
+            </div>
+
+            <div class="delivery_payment">
+                <div class="delivery_pr">
+                    <h3>Доставка</h3>
+                    <label>
+                        <p><input th:field="*{delivery}" name="delivery" type="radio" value="pickup" checked>  Самовывоз </p>
+                    </label>
+                    <label>
+                        <p><input th:field="*{delivery}" name="delivery" type="radio" value="courier">  Доставка курьером </p>
+                    </label>
+                    <label>
+                        <p><input th:field="*{delivery}" name="delivery" type="radio" value="post">  Почта России</p>
+                    </label>
+                </div>
+
+                <div class="payment_pr">
+                    <h3>Оплата</h3>
+                    <label>
+                        <p><input th:field="*{payment}" name="payment" type="radio" value="cash" checked>  Наличный расчет </p>
+                    </label>
+                    <label>
+                        <p><input th:field="*{payment}" name="payment" type="radio" value="no-cash">  Безналичный расчет </p>
+                    </label>
+                </div>
+            </div>
+
+            <div class="go_order">
+                <button type="submit" class="go">Оформить заказ</button>
+            </div>
+
+            <p th:text="${mes}" id="mes" class="mes" />
+
+        </div>
+
+    </form>
+
+    </div>
+
+
+
+    <script src="js/stepper.min.js"></script>
+
+    <footer th:insert="footer :: footer"></footer>
+
+</body>
+</html>

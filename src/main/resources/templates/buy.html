@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/profile_style.css">
+</head>
+<body>
+
+    <header th:insert="header :: header"></header>
+
+    <div class="profile">
+        <div class="menu_profile">
+            <a href="/profile">Личные данные</a>
+            <a href="/buy" class="yes">Покупки</a>
+            <a href="/basket">Корзина</a>
+            <a href="/exit">Выход</a>
+        </div>
+        <div class="buy cards">
+            <!-- КАРТОЧКИ -->
+                <div class="card" th:each="el : ${all_res}" th:id="${el.id}" th:attr="onclick=|upload('${el.id}')|">
+                    <div class="img_card">
+                        <img th:src="@{${'img/product/' + el.url_img}}" />
+                    </div>
+                    <div class="title_card">
+                        <p th:text="${el.title_product}"/>
+                    </div>
+                    <div class="price_card">
+                        <div class="price" th:if="${el.discounts}!=0" >
+                            <p th:text="(${el.price} * (100 - ${el.discounts}))/100 + ' р.'" />
+                            <p class="old_price" th:text="${el.price} + ' р.'"/>
+                        </div>
+                        <div class="price" th:if="${el.discounts}==0" >
+                            <p th:text="${el.price} + ' р.'" />
+                        </div>
+                    </div>
+                    <div class="order_puy">
+                        <p th:text="'Заказ: ' + ${el.time_order}"/>
+                    </div>
+                </div>
+        </div>
+
+    </div>
+
+    <script>
+        function upload(id){
+            location.href = 'product/' + id;
+        }
+    </script>
+
+    <footer th:insert="footer :: footer"></footer>
+
+</body>
+</html>

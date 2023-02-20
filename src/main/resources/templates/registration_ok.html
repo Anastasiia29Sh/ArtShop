@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+    <header th:insert="header :: header"></header>
+
+    <div style="font-size: 25px; margin-top: 25px; text-align: center;">
+    <p >Поздравляем! Вы успешно зарегистрировались.</p>
+    <a href="#" onclick="reg_ok()" style="margin-top: 20px; color: #000;" >Войти в свой аккаунт</a>
+    </div>
+
+    <script>
+        function reg_ok(){
+            document.getElementById("input_user").style.display = "block";
+        }
+    </script>
+
+
+    <footer th:insert="footer :: footer"></footer>
+
+</body>
+</html>

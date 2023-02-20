@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/contacts.css">
+</head>
+<body>
+
+<header th:insert="header :: header"></header>
+    <script>
+        let cont = document.getElementsByClassName('delivery')[0];
+        cont.style.setProperty('border-bottom', '3px solid #9AE7FF');
+    </script>
+
+
+<div class="main_img">
+    <img src="/img/delivery1.png">
+</div>
+
+<div class="info_contacts">
+    <div class="main_info">
+        <div>
+            <h4>Доступны четыре способа получить заказ:</h4>
+            <ul>
+                <li>самовывозом забрать из Магазинов Арт-Склад;</li>
+                <li>пункты выдачи заказов (ПВЗ) компаний СДЭК, Boxberry, PickPoint; </li>
+                <li>курьерская доставка пешим курьером или нашим автомобилем для габаритных и тяжёлых грузов;</li>
+                <li>для поклонников Почты России, сообщаем, что из Санкт-Петербурга в Санкт-Петербург доставка так же возможна.</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Платная доставка:</h4>
+            <ul>
+                <li>оплаченные заказы мы доставим бесплатно от суммы 4 500 рублей; </li>
+                <li>курьерская доставка при заказе до 2 990 рублей стоимость составит 385 руб.; </li>
+                <li>курьерская доставка при заказе свыше 2 990 рублей - 290 руб.;</li>
+                <li>курьерская доставка при заказе свыше 7 990 рублей - 240 руб.;</li>
+                <li>курьерская доставка при заказе свыше 9 999 рублей - бесплатно;</li>
+                <li>товары, отмеченные стикером "Бесплатная доставка" или Оплаченные заказы на сумму свыше 4 500 рублей мы доставляем бесплатно;</li>
+                <li>доставка в Пункты выдачи заказов СДЭК, Boxberry, PickPoint составляет около 300 рублей и рассчитывается на нашем сайте при оформлении заказа.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="main_img main_img1" >
+    <img src="/img/delivery2.png">
+</div>
+
+<footer th:insert="footer :: footer"></footer>
+
+</body>
+</html>

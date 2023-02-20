@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/profile_style.css">
+</head>
+<body>
+
+    <header th:insert="header :: header"></header>
+
+    <div class="profile">
+        <div class="menu_profile">
+            <a href="/profile" class="yes">Личные данные</a>
+            <a href="/buy">Покупки</a>
+            <a href="/basket">Корзина</a>
+            <a href="/exit">Выход</a>
+        </div>
+        <div class="info_profile">
+            <form th:action="@{/update_user}" method="post" th:object="${checkbox}" class="form_reg">
+                <div>
+                    <label>Имя * <br>
+                        <input th:field="*{first_name}" type="text" name="first_name" th:placeholder="${name_user1}">
+                    </label> <br>
+                    <label>Фамилия * <br>
+                        <input th:field="*{second_name}" type="text" name="second_name" th:placeholder="${name_user2}">
+                    </label> <br>
+                    <label>Отчество <br>
+                        <input th:field="*{third_name}" type="text" name="second_name" th:placeholder="${name_user3}">
+                    </label>
+                </div>
+
+                <div>
+                    <label>E-mail * <br>
+                        <input th:field="*{email}" type="email" name="mail" th:placeholder="${email_user}">
+                    </label> <br>
+                    <label>Телефон *<br>
+                        <input th:field="*{tel}" type="tel" name="tel" th:placeholder="${tel_user}">
+                    </label> <br>
+                    <label>День рождение * <br>
+                        <input th:field="*{birthday}" type="date" name="birthday">
+                    </label>
+                </div>
+
+                <div class="t3">
+                    <label>Пароль *<br>
+                        <input th:field="*{password}" type="password" name="pass" value="">
+                    </label> <br>
+                    <label>Повторите пароль *<br>
+                        <input th:field="*{password2}" type="password" name="pass2" value="">
+                    </label> <br>
+                    <label>
+                        <button type="submit" class="save">Сохранить</button>
+                    </label>
+                </div>
+
+            </form>
+            <p class="mes" th:text="${mess_erroy}" />
+        </div>
+    </div>
+
+    <footer th:insert="footer :: footer"></footer>
+
+</body>
+</html>

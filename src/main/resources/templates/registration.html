@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/registration.css">
+</head>
+<body>
+
+    <header th:insert="header :: header"></header>
+
+    <h2 class="reg">Pегистрация</h2>
+
+    <form th:action="@{/registration}" method="post" th:object="${checkbox}" class="form_reg">
+
+        <table>
+            <tr>
+                <td class="td1">Имя *</td>
+                <td><input th:field="*{first_name}" type="text" name="first_name" ></td>
+            </tr>
+            <tr>
+                <td class="td1">Фамилия *</td>
+                <td><input th:field="*{second_name}" type="text" name="second_name" ></td>
+            </tr>
+            <tr>
+                <td class="td1">Отчество </td>
+                <td><input th:field="*{third_name}" type="text" name="second_name" ></td>
+            </tr>
+            <tr>
+                <td class="td1">E-mail *</td>
+                <td><input th:field="*{email}" type="email" name="mail"></td>
+            </tr>
+            <tr>
+                <td class="td1">Телефон *</td>
+                <td><input th:field="*{tel}" type="tel" name="tel" ></td>
+            </tr>
+            <tr>
+                <td class="td1">День рождение *</td>
+                <td><input th:field="*{birthday}" type="date" name="birthday" value=""></td>
+            </tr>
+            <tr>
+                <td class="td1">Пароль *</td>
+                <td><input th:field="*{password}" type="password" name="pass" value=""></td>
+            </tr>
+            <tr>
+                <td class="td1">Повторите пароль *</td>
+                <td><input th:field="*{password2}" type="password" name="pass2" value=""></td>
+            </tr>
+        </table>
+
+        <button type="submit" class="go">Зарегистрироваться</button>
+    </form>
+
+    <p th:text="${mess_erroy}" class="mes" />
+
+
+    <footer th:insert="footer :: footer"></footer>
+
+</body>
+</html>
